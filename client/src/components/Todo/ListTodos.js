@@ -42,9 +42,8 @@ const ListTodos = () => {
       <table class="table mt-5 text-center">
         <thead>
           <tr>
-            <th>Description</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Tehtävät:</th>
+            <th>Poista Tehtävä</th>
           </tr>
         </thead>
         <tbody>
@@ -56,9 +55,6 @@ const ListTodos = () => {
           {todos.map(todo => (
             <tr key={todo.todo_id}>
               <td>{todo.description}</td>
-              <td>
-                <EditTodo todo={todo} />
-              </td>
               <td>
                 <button
                   className="btn btn-danger"
