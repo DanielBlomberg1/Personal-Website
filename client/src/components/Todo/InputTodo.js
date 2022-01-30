@@ -21,8 +21,8 @@ const InputTodo = () => {
 
   return (
     <Fragment>
-      <h1 className="text-center mt-5">Tehtävä Lista</h1>
-      <form className="d-flex mt-5" onSubmit={onSubmitForm}>
+      <h1 className="text-center text-2xl">Tehtävä Lista</h1>
+      <form className="d-flex" onSubmit={onSubmitForm}>
         <input
           type="text"
           className="form-control"
