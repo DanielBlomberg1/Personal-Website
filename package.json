@@ -4,7 +4,13 @@
   "description": "website for all my things and bobbles",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "yarn watch:css && react-scripts start",
+    "build": "yarn build:css && react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
+    "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
+
   },
   "repository": {
     "type": "git",

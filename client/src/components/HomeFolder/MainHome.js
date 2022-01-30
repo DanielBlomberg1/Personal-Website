@@ -4,7 +4,7 @@ const MainHome = () =>{
     return(
         <Fragment>
             <div className="container">
-                <div>
+                <div className="mt-5">
                     <h1>HomePage</h1>
                 </div>
             </div>
