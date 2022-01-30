@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
-import './assets/tailwind.css';
+import './App.css';
 
 import InputTodo from "./components/Todo/InputTodo";
 import ListTodos from "./components/Todo/ListTodos";
