@@ -519,6 +519,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-right: 5rem;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mb-5 {
   margin-bottom: 1.25rem;
 }
@@ -545,6 +550,22 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .mt-5 {
   margin-top: 1.25rem;
+}
+
+.ml-20 {
+  margin-left: 5rem;
+}
+
+.ml-48 {
+  margin-left: 12rem;
+}
+
+.ml-44 {
+  margin-left: 11rem;
+}
+
+.ml-40 {
+  margin-left: 10rem;
 }
 
 .flex {
@@ -645,6 +666,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex-row {
   flex-direction: row;
+}
+
+.content-center {
+  align-content: center;
 }
 
 .items-center {
