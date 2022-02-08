@@ -26,7 +26,7 @@ const CalcMain = () =>{
                 s = s.substring(0,smallest);
             }
 
-            console.log(s);
+            //console.log(s);
         }
         return s;
     }
@@ -37,8 +37,6 @@ const CalcMain = () =>{
         let s1 = s.substring(0, multipli);
         let s2 = s.substring(multipli + 1);
         
-
-
         if(s1.indexOf('/') != -1){
             console.log("/ not implemented yet");
             return;
@@ -46,29 +44,35 @@ const CalcMain = () =>{
 
         s1 = getNumberNearOperator(s1, true);
         s2 = getNumberNearOperator(s2, false);
-        console.log("parts = " + s1 + "  "+s2);
+        //console.log("parts = " + s1 + "  "+s2);
+        let evaluation = s1 * s2;
+        let part = (+s1 + "*" + s2).toString();
+        s=s.substring(part.length);
+        s=evaluation+s;
+ 
+        return s;
     }
 
 
     function handleChange(){
         var text1 = document.getElementById('input-main').value; 
         var raturnval=0;
-        text1 = text1.replace(/\s+/g, '')
-        console.log(text1);
-
-        if(text1.indexOf('(') != -1){
-            if(text1.indexOf(')') != -1 ||  text1.indexOf(')') > text1.indexOf('(')){
-                let partresult = text1.substring(text1.indexOf('(') + 1, text1.indexOf(')'));
-                evaluatePart(partresult);
+        text1 = text1.replace(/\s+/g, '');
+        for(var i =0; i < 2;i++){
+            console.log(text1.indexOf('('));
+            if(text1.indexOf('(') != -1){
+                if(text1.indexOf(')') != -1 ||  text1.indexOf(')') > text1.indexOf('(')){
+                    let partresult = text1.substring(text1.indexOf('(') + 1, text1.indexOf(')'));
+                    //console.log(text1);
+                    text1 = evaluatePart(partresult);
+                    console.log(text1);
+                }
             }
         }
-
-
     };
 
     return(
         <Fragment>
-
         <div className="bg-slate-900 h-screen">
             <div className="flex">
                 <h1 className="text-4xl text-violet-300 font-mono mb-5 bg-slate-500 align-text-right text-center justify-center w-screen h-12 ">Calculator </h1>
@@ -102,7 +106,6 @@ const CalcMain = () =>{
                 </div>
             </div>
         </div>
- 
         </Fragment>
     )
 };
