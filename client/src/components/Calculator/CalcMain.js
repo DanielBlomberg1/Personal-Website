@@ -9,11 +9,44 @@ const CalcMain = () =>{
     specialChars.set('e', 2.7);
     
 
+    function getNumberNearOperator(s, boolean){ 
+        let smallest = 9999;
+        operatorList.forEach(e => {
+            let eI = s.lastIndexOf(e);
+            //console.log("index of " + e + " is "+ eI);
+            if(eI < smallest && eI != -1){
+                smallest = eI;
+            }
+        });
+        
+        if(smallest != 9999){
+            if(boolean){
+                s = s.substring(smallest+1);
+            }else{
+                s = s.substring(0,smallest);
+            }
+
+            console.log(s);
+        }
+        return s;
+    }
+
     function evaluatePart(s){
-        console.log(s);
+        //console.log(s);
         let multipli = s.indexOf('*');
         let s1 = s.substring(0, multipli);
-        let s2 = s.substring(s.length() - multipli);
+        let s2 = s.substring(multipli + 1);
+        
+
+
+        if(s1.indexOf('/') != -1){
+            console.log("/ not implemented yet");
+            return;
+        }
+
+        s1 = getNumberNearOperator(s1, true);
+        s2 = getNumberNearOperator(s2, false);
+        console.log("parts = " + s1 + "  "+s2);
     }
 
 
