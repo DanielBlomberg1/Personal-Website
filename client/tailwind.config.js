@@ -30,11 +30,22 @@ module.exports = {
               opacity: '1',
               transform: 'translateY(0)'
           },
-        }
+        },
+        'gradient-x': {
+          '0%, 100%': {
+              'background-size':'200% 200%',
+              'background-position': 'left center'
+          },
+          '50%': {
+              'background-size':'200% 200%',
+              'background-position': 'right center'
+          }
+        },
       },
       animation: {
         wiggle: 'wiggle 3s ease-in-out infinite',
-        'fade-in-down': 'fade-in-down 0.5s ease-out'
+        'fade-in-down': 'fade-in-down 0.5s ease-out',
+        'gradient-x':'gradient-x 5s ease infinite',
       }
       
     },

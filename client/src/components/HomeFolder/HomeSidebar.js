@@ -17,6 +17,12 @@ const HomeSideBar = () =>{
                         <button></button>
                         Photo collection
                     </Link>
+                    <hr className="h-20"></hr>
+                    <Link to ="/calc" className="btn sidebar-btn-def hover:text-green-400">
+                        <img src="https://img.icons8.com/ios/100/000000/apple-calculator.png"/>
+                        <button></button>
+                        calculator app
+                    </Link>
                 </div>
                  <div class="w-1/2"></div>
         </Fragment>
