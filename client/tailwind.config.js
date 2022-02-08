@@ -4,6 +4,11 @@ module.exports = {
   theme: {
     extend: {
       fontSize: ["hover", "focus"],
+      colors: {
+        light: "#e2f3f5",
+        teal: "#22d1ee",
+        dark: "#0e153a",
+    },
       backgroundImage:{
         'todobg':"url('/src/assets/todobg.jpg')",
       },

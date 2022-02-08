@@ -17,7 +17,7 @@ const MainHome = () =>{
                         <h3 class="text-white text-2xl font-mono text-center btn-text-1">This button has been clicked {count} times</h3>
                         <div class= " mt-4 content-center justify-center items-center flex ">
                             <button class="btn btn-danger  text-5xl flex " onClick={() => setCount(count + 1)}>
-                                Press me
+                                click this
                             </button>
                         </div>
 
