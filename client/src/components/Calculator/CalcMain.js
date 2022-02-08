@@ -3,6 +3,11 @@ import {Link} from 'react-router-dom';
 import "../../App.css";
 
 const CalcMain = () =>{
+    let [calc, setCalc] = useState({
+        input:"",
+        res:0,
+    });
+
     return(
         <Fragment>
 
