@@ -2,7 +2,6 @@ import React, {useState, Fragment} from "react";
 import {Link} from 'react-router-dom';
 
 const HomeSideBar = () =>{
-    const [cls, setCls] = useState("text-white");
 
     return(
         <Fragment>
