@@ -3,10 +3,35 @@ import {Link} from 'react-router-dom';
 import "../../App.css";
 
 const CalcMain = () =>{
-    let [calc, setCalc] = useState({
-        input:"",
-        res:0,
-    });
+    const operatorList = ['+','-', '/', '*'];
+    const specialChars = new Map;
+    specialChars.set('π', 3.14);
+    specialChars.set('e', 2.7);
+    
+
+    function evaluatePart(s){
+        console.log(s);
+        let multipli = s.indexOf('*');
+        let s1 = s.substring(0, multipli);
+        let s2 = s.substring(s.length() - multipli);
+    }
+
+
+    function handleChange(){
+        var text1 = document.getElementById('input-main').value; 
+        var raturnval=0;
+        text1 = text1.replace(/\s+/g, '')
+        console.log(text1);
+
+        if(text1.indexOf('(') != -1){
+            if(text1.indexOf(')') != -1 ||  text1.indexOf(')') > text1.indexOf('(')){
+                let partresult = text1.substring(text1.indexOf('(') + 1, text1.indexOf(')'));
+                evaluatePart(partresult);
+            }
+        }
+
+
+    };
 
     return(
         <Fragment>
@@ -22,8 +47,8 @@ const CalcMain = () =>{
             </div>
             <div className="ml-3">
                 <div>
-                    <h3 className="text-3xl text-slate-300 font-mono">Input here:</h3>
-                    <textarea placeholder="input mathematical expression..." className="border-3 w-2/6 h-1/6 bg-slate-700 text-violet-100 border-slate-500 p-2 align-text-top"></textarea>
+                    <h3 className="text-3xl text-slate-300 font-mono" >Input here:</h3>
+                    <textarea id="input-main" onChange={()=>handleChange()} placeholder="input mathematical expression..." className="border-3 w-2/6 h-1/6 bg-slate-700 text-violet-100 border-slate-500 p-2 align-text-top"></textarea>
                 </div>
                 <div className="grid gap-4 grid-cols-6 grid-rows-6 w-2/6 h-1/6 aspect-square m-12">
                     <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
