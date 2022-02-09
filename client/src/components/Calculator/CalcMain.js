@@ -10,10 +10,32 @@ const CalcMain = () =>{
     
 
     function getNumberNearOperator(s, boolean){ 
+        console.log(s);
+        var evaluate;
+        if(s == null){return;}
         let smallest = 9999;
         operatorList.forEach(e => {
             let eI = s.lastIndexOf(e);
+            const indeces = [...s.matchAll(new RegExp("["+e+"]", 'gi'))].map(a => a.index);
+            console.log(indeces);
             //console.log("index of " + e + " is "+ eI);
+            indeces.forEach(i =>{
+                console.log("i" + i);
+                var part1 = s.substring(0, i);
+                var part2 = s.substring(i);
+                var closest = 9999;
+
+                operatorList.forEach(e => {
+                    var close = i.reduce(function(prev, curr) {
+                        return (Math.abs(curr - i) < Math.abs(prev - i) ? curr : prev);
+                    });
+                    if(closest > close){ closest = close;}
+                });
+                part2 = part2.substring(0, closest);
+
+                evaluate += window.eval(part1 + e + part2);
+
+            });
             if(eI < smallest && eI != -1){
                 smallest = eI;
             }
@@ -28,6 +50,7 @@ const CalcMain = () =>{
 
             //console.log(s);
         }
+        console.log(evaluate);
         return s;
     }
 
@@ -46,11 +69,8 @@ const CalcMain = () =>{
         s2 = getNumberNearOperator(s2, false);
         //console.log("parts = " + s1 + "  "+s2);
         let evaluation = s1 * s2;
-        let part = (+s1 + "*" + s2).toString();
-        s=s.substring(part.length);
-        s=evaluation+s;
- 
-        return s;
+
+        return evaluation;
     }
 
 
@@ -58,17 +78,30 @@ const CalcMain = () =>{
         var text1 = document.getElementById('input-main').value; 
         var raturnval=0;
         text1 = text1.replace(/\s+/g, '');
-        for(var i =0; i < 2;i++){
-            console.log(text1.indexOf('('));
-            if(text1.indexOf('(') != -1){
-                if(text1.indexOf(')') != -1 ||  text1.indexOf(')') > text1.indexOf('(')){
-                    let partresult = text1.substring(text1.indexOf('(') + 1, text1.indexOf(')'));
-                    //console.log(text1);
-                    text1 = evaluatePart(partresult);
-                    console.log(text1);
-                }
+
+        if(text1.indexOf('(') != -1){
+            if(text1.indexOf(')') != -1 ||  text1.indexOf(')') > text1.indexOf('(')){
+                let partresult = text1.substring(text1.indexOf('(') + 1, text1.indexOf(')'));
+                //console.log(text1);
+                let oldPartResult = partresult;
+
+                partresult = evaluatePart(partresult);
+                text1.replace(oldPartResult, partresult);
+
+                console.log(text1 + "  evaluation " + partresult + " old part result " + oldPartResult);
             }
         }
+
+        operatorList.forEach(e => {
+            const indeces = [...text1.matchAll(new RegExp("["+e+"]", 'gi'))].map(a => a.index);
+            indeces.forEach(i =>{
+                console.log(text1);
+                console.log(indeces);
+                let n1 = getNumberNearOperator(text1, true);
+                let n2 = getNumberNearOperator(text1, false);
+            });
+        });
+        
     };
 
     return(
