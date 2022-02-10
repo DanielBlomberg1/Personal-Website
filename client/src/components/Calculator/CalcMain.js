@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
 import {Link} from 'react-router-dom';
+import ReactDOM from 'react-dom';
+
 import "../../App.css";
 
 const CalcMain = () =>{
-    
-
+    var steps=[];
     const operatorList = ['+','-', '/', '*'];
     /*
     const operatorfuncs = {
@@ -43,7 +44,7 @@ const CalcMain = () =>{
         }
       
         return !isNaN(char);
-      }
+    }
 
 
     function handleChange(){
@@ -51,25 +52,43 @@ const CalcMain = () =>{
         text1 = text1.replace(/\s+/g, '');
 
         let indeces = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
-        
+        let steps = [];
+
         while (indeces.length != 0 && indeces[0]+1 != text1.length && indeces[0] != "+"){
 
             let part1 = text1.substring(0, indeces[0]);
             let part2 = text1.substring(indeces[0]+1);
             part2 = splitAtOperator(part2);
-            let together =part1+"+"+part2;
+            let together = part1 + "+" + part2;
+
+            steps.push(together +" = "+ (parseFloat(part1)+parseFloat(part2)).toString());
+
             if(part1.length > 0 && part2.length > 0){
-                //var eval = part1 + part2;
                 text1 = text1.replace(together, (parseFloat(part1)+parseFloat(part2)));
-                //console.log("result = " + text1 + " part 1 = " + part1+" part2 = "+ part2);
             }
             indeces = indeces = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
         }
-        var res = document.getElementById('result').innerHTML = text1;
+
+        let divThings = document.getElementById("steps");
+
+        let tempdiv = document.createElement('div');
+
+        for(let i =0; i< steps.length;i++){
+            let temp = document.createElement('h3');
+            temp.innerHTML = steps[i];
+            temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6" 
+            tempdiv.appendChild(temp);
+        }
+
+        divThings.appendChild(tempdiv);
+
+        document.getElementById('result').innerHTML = text1;
     };
 
     return(
         <Fragment>
+            
+
         <div className="bg-slate-900 h-screen">
             <div className="flex">
                 <h1 className="text-4xl text-violet-300 font-mono mb-5 bg-slate-500 align-text-right text-center justify-center w-screen h-12 ">Calculator </h1>
@@ -105,6 +124,9 @@ const CalcMain = () =>{
                         π
                     </button>
                 </div>
+            </div>
+            <div id="steps">
+
             </div>
         </div>
         </Fragment>
