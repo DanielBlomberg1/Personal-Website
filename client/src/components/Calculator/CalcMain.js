@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, {Fragment} from "react";
 import {Link} from 'react-router-dom';
-
+import CalcInfo from "./CalcInfo";
 import "../../App.css";
 
 const CalcMain = () =>{
@@ -171,6 +171,9 @@ const CalcMain = () =>{
                     <h1 className="text-4xl text-white font-mono">Steps:</h1>
                     <br></br>
                 </div>
+            </div>
+            <div>
+                <CalcInfo/>
             </div>
         </div>
         </Fragment>

@@ -12,6 +12,21 @@ code {
     monospace;
 }
 @tailwind base;
+
+@layer base{
+  h1 {
+    @apply text-2xl text-white font-mono;
+  }
+  h2 {
+    @apply text-xl text-white font-mono;
+  }
+  h3 {
+    @apply text-lg text-white font-mono;
+  }
+  a {
+    @apply text-blue-600 underline;
+  }
+}
 @tailwind components;
 @tailwind utilities;
 
