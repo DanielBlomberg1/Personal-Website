@@ -48,6 +48,7 @@ const CalcMain = () =>{
 
 
     function handleChange(){
+
         let text1 = document.getElementById('input-main').value; 
         text1 = text1.replace(/\s+/g, '');
 
@@ -70,14 +71,22 @@ const CalcMain = () =>{
         }
 
         let divThings = document.getElementById("steps");
+        let elem = document.getElementById("tempdiv");
+        if(typeof elem !== 'undefined' && elem !== null){
+            elem.remove();
+            
+        }
 
         let tempdiv = document.createElement('div');
+        tempdiv.id="tempdiv";
 
         for(let i =0; i< steps.length;i++){
-            let temp = document.createElement('h3');
+            let temp = document.createElement('textare');
             temp.innerHTML = steps[i];
-            temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6" 
+            temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6 flex-wrap" 
+            let temp2 = document.createElement('br');
             tempdiv.appendChild(temp);
+            tempdiv.appendChild(temp2);
         }
 
         divThings.appendChild(tempdiv);
@@ -98,35 +107,38 @@ const CalcMain = () =>{
                     </Link>
                 </div>
             </div>
-            <div className="ml-5">
-                <div>
-                    <h3 className="text-3xl text-slate-300 font-mono" >Input here:</h3>
-                    <div className="flex flex-row">
-                        <textarea id="input-main" onChange={()=>handleChange()} placeholder="input mathematical expression..." className="border-3 w-2/6 h-1/6 bg-slate-700 text-violet-100 border-slate-500 p-2 align-text-top"></textarea>
-                        <p  className="text-white font-mono text-3xl p-4 text-center">Evaluation = <span id="result"></span></p>
+            <div className="flex flex-row">
+                <div className="ml-5 w-4/5">
+                    <div>
+                        <h3 className="text-3xl text-slate-300 font-mono" >Input here:</h3>
+                        <div className="flex flex-row">
+                            <textarea id="input-main" onChange={()=>handleChange()} placeholder="input mathematical expression..." className="border-3 w-2/6 h-1/6 bg-slate-700 text-violet-100 border-slate-500 p-2 align-text-top"></textarea>
+                            <p  className="text-white font-mono text-3xl p-4 text-center">Evaluation = <span id="result"></span></p>
+                        </div>
+
                     </div>
-
+                    <div className="grid gap-4 grid-cols-6 grid-rows-6 w-2/6  aspect-square m-12">
+                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
+                            +
+                        </button>
+                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
+                            -
+                        </button>
+                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
+                            /
+                        </button>
+                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
+                            *
+                        </button>
+                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
+                            π
+                        </button>
+                    </div>
                 </div>
-                <div className="grid gap-4 grid-cols-6 grid-rows-6 w-2/6 h-1/6 aspect-square m-12">
-                    <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                        +
-                    </button>
-                    <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                        -
-                    </button>
-                    <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                        /
-                    </button>
-                    <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                        *
-                    </button>
-                    <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                        π
-                    </button>
+                <div id="steps">
+                    <h1 className="text-4xl text-white font-mono">Steps:</h1>
+                    <br></br>
                 </div>
-            </div>
-            <div id="steps">
-
             </div>
         </div>
         </Fragment>
