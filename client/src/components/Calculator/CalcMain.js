@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, {Fragment} from "react";
 import {Link} from 'react-router-dom';
-
+import CalcInfo from "./CalcInfo";
 import "../../App.css";
 
 const CalcMain = () =>{
@@ -23,11 +23,11 @@ const CalcMain = () =>{
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
-            if(index != -1 && index != 0 &&  index < smallest){
+            if(index !== -1 && index !== 0 &&  index < smallest){
                 smallest = index;
             }
         });
-        if(smallest!=9999){string = string.substring(0, smallest);}
+        if(smallest !== 9999){string = string.substring(0, smallest);}
 
         return string;
     }
@@ -37,11 +37,11 @@ const CalcMain = () =>{
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
-            if(index != -1 &&  index != 0 && index < smallest){
+            if(index !== -1 &&  index !== 0 && index < smallest){
                 smallest = index;
             }
         });
-        if(smallest!=9999){string = string.substring(smallest + 1);}
+        if(smallest !== 9999){string = string.substring(smallest + 1);}
 
         return string;
     }
@@ -76,7 +76,7 @@ const CalcMain = () =>{
             indeces = [...s.matchAll(new RegExp("[" + operators[0] + "]", 'gi'))].map(a => a.index);
         }
 
-        while (indeces.length != 0 && indeces[0]+1 != s.length){
+        while (indeces.length !== 0 && indeces[0]+1 !== s.length){
             let part1 = s.substring(0, indeces[0]);
             let part2 = s.substring(indeces[0]+1);
 
@@ -125,9 +125,9 @@ const CalcMain = () =>{
 
         let divThings = document.getElementById("steps");
         let elem = document.getElementById("tempdiv");
+
         if(typeof elem !== 'undefined' && elem !== null){
             elem.remove();
-            
         }
 
         let tempdiv = document.createElement('div');
@@ -135,7 +135,7 @@ const CalcMain = () =>{
 
         for(let i =0; i< steps.length;i++){
             let temp = document.createElement('textare');
-            temp.innerHTML = steps[i];
+            temp.innerHTML = i+1 +". "+ steps[i];
             temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6 flex-wrap truncate" 
             let temp2 = document.createElement('br');
             tempdiv.appendChild(temp);
@@ -171,6 +171,9 @@ const CalcMain = () =>{
                     <h1 className="text-4xl text-white font-mono">Steps:</h1>
                     <br></br>
                 </div>
+            </div>
+            <div>
+                <CalcInfo/>
             </div>
         </div>
         </Fragment>
