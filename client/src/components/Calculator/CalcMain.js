@@ -162,23 +162,6 @@ const CalcMain = () =>{
                         </div>
 
                     </div>
-                    <div className="grid gap-4 grid-cols-6 grid-rows-6 w-2/6  aspect-square m-12">
-                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                            +
-                        </button>
-                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                            -
-                        </button>
-                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                            /
-                        </button>
-                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                            *
-                        </button>
-                        <button className="text-4xl rounded-xl pt-1 mt-2 bg-slate-500">
-                            π
-                        </button>
-                    </div>
                 </div>
                 <div id="steps">
                     <h1 className="text-4xl text-white font-mono">Steps:</h1>
