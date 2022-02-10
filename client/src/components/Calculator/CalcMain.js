@@ -23,11 +23,11 @@ const CalcMain = () =>{
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
-            if(index != -1 && index != 0 &&  index < smallest){
+            if(index !== -1 && index !== 0 &&  index < smallest){
                 smallest = index;
             }
         });
-        if(smallest!=9999){string = string.substring(0, smallest);}
+        if(smallest !== 9999){string = string.substring(0, smallest);}
 
         return string;
     }
@@ -37,11 +37,11 @@ const CalcMain = () =>{
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
-            if(index != -1 &&  index != 0 && index < smallest){
+            if(index !== -1 &&  index !== 0 && index < smallest){
                 smallest = index;
             }
         });
-        if(smallest!=9999){string = string.substring(smallest + 1);}
+        if(smallest !== 9999){string = string.substring(smallest + 1);}
 
         return string;
     }
@@ -76,7 +76,7 @@ const CalcMain = () =>{
             indeces = [...s.matchAll(new RegExp("[" + operators[0] + "]", 'gi'))].map(a => a.index);
         }
 
-        while (indeces.length != 0 && indeces[0]+1 != s.length){
+        while (indeces.length !== 0 && indeces[0]+1 !== s.length){
             let part1 = s.substring(0, indeces[0]);
             let part2 = s.substring(indeces[0]+1);
 
