@@ -1,20 +1,24 @@
 import React, { Fragment, useState } from "react";
 import {Link} from 'react-router-dom';
-import ReactDOM from 'react-dom';
 
 import "../../App.css";
 
 const CalcMain = () =>{
     var steps=[];
     const operatorList = ['+','-', '/', '*'];
-    /*
+    
     const operatorfuncs = {
         '+': function(a, b) {return a+b},
         '-': function(a, b) {return a-b},
         '*': function(a, b) {return a*b},
         '/': function(a, b) {return a/b},
     }
-    */
+
+    const regexEscaped = {
+        '*': "/\*/",
+        '-': "/\-/"
+    }
+    
     const specialChars = new Map;
     specialChars.set('π', 3.14);
     specialChars.set('e', 2.7);
@@ -24,7 +28,7 @@ const CalcMain = () =>{
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
-            if(index != -1 && index < smallest){
+            if(index != -1 && index != 0 &&  index < smallest){
                 smallest = index;
             }
         });
@@ -32,11 +36,13 @@ const CalcMain = () =>{
 
         return string;
     }
+
+
     function splitAtOperatorSmaller(string){
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
-            if(index != -1 && index < smallest){
+            if(index != -1 &&  index != 0 && index < smallest){
                 smallest = index;
             }
         });
@@ -44,7 +50,6 @@ const CalcMain = () =>{
 
         return string;
     }
-
 
 
     function isNumber(char) {
@@ -60,52 +65,29 @@ const CalcMain = () =>{
     }
 
 
-    function handleChange(){
+    function calculateOperation(s, operators){
+        let indeces =[];
+        console.log(operators[0]);
 
-        let text1 = document.getElementById('input-main').value; 
-        text1 = text1.replace(/\s+/g, '');
-        document.getElementById('result').innerHTML = "";
-
-        
-        let indecesMultiplication = [...text1.matchAll(new RegExp("[*]", 'gi'))].map(a => a.index);
-        console.log(indecesMultiplication);
-        let steps = [];
-
-        if(!isNumber(text1.charAt(0)) || !isNumber(text1.charAt(text1.length-1))){
-            return;
-        }
-        
-        while (indecesMultiplication.length != 0 && indecesMultiplication[0]+1 != text1.length && indecesMultiplication[0] != "*"){
-
-            let part1 = text1.substring(0, indecesMultiplication[0]);
-            let part2 = text1.substring(indecesMultiplication[0]+1);
-
-
-            part1 = splitAtOperatorSmaller(part1)
-            part2 = splitAtOperatorBigger(part2);
-
-            if(!isNumber(part1) || !isNumber(part2)){
-                return;
-            }
-            //console.log("part1: " + part1 + " part2: " + part2);
-
-            let together = part1 + "*" + part2;
-
-            steps.push(together +" = "+ (parseFloat(part1)*parseFloat(part2)).toString());
-
-            if(part1.length > 0 && part2.length > 0){
-                text1 = text1.replace(together, (parseFloat(part1)*parseFloat(part2)));
+        if(operators.length > 1){
+            for(let i = 0; i < operators.length; i++){
+                let temmp = [...s.matchAll(new RegExp("["+operators[i]+"]", 'gi'))].map(a => a.index);
+                for(let j = 0; j < temmp.length; j++){
+                    indeces.push(temmp[j]);
+                }
             }
 
-            indecesMultiplication = [...text1.matchAll(new RegExp("[*]", 'gi'))].map(a => a.index);
+            if(indeces.length > 1){indeces.sort(function(a, b){return a - b});}
+        }else{
+            indeces = [...s.matchAll(new RegExp("[" + operators[0] + "]", 'gi'))].map(a => a.index);
         }
 
-        let indecesAddition = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
+        console.log(indeces);
 
-        while (indecesAddition.length != 0 && indecesAddition[0]+1 != text1.length && indecesAddition[0] != "+"){
+        while (indeces.length != 0 && indeces[0]+1 != s.length){
 
-            let part1 = text1.substring(0, indecesAddition[0]);
-            let part2 = text1.substring(indecesAddition[0]+1);
+            let part1 = s.substring(0, indeces[0]);
+            let part2 = s.substring(indeces[0]+1);
 
             part1 = splitAtOperatorSmaller(part1)
             part2 = splitAtOperatorBigger(part2);
@@ -115,16 +97,42 @@ const CalcMain = () =>{
             }
            //console.log("part1: " + part1 + " part2: " + part2);
 
-            let together = part1 + "+" + part2;
+            let together = part1 + s.charAt(indeces[0]) + part2;
 
-            steps.push(together +" = "+ (parseFloat(part1)+parseFloat(part2)).toString());
+            steps.push(together +" = "+ (operatorfuncs[s.charAt(indeces[0])](parseFloat(part1), parseFloat(part2))).toString());
+            console.log("steps: " + steps);
 
             if(part1.length > 0 && part2.length > 0){
-                text1 = text1.replace(together, (parseFloat(part1)+parseFloat(part2)));
+                s = s.replace(together, (operatorfuncs[s.charAt(indeces[0])](parseFloat(part1), parseFloat(part2))));
             }
 
-            indecesAddition = indecesAddition = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
+            indeces = [];
+            for(let i = 0; i < operators.length; i++){
+                let temmp = [...s.matchAll(new RegExp("["+operators[i]+"]", 'gi'))].map(a => a.index);
+                for(let j = 0; j < temmp.length; j++){
+                    indeces.push(temmp[j]);
+                }
+            }
+            if(indeces.length > 1){indeces.sort(function(a, b){return a - b});}
         }
+        return s;
+    }
+
+    function handleChange(){
+
+        let text1 = document.getElementById('input-main').value; 
+        text1 = text1.replace(/\s+/g, '');
+        document.getElementById('result').innerHTML = "";
+
+        steps = [];
+
+        if(!isNumber(text1.charAt(0)) || !isNumber(text1.charAt(text1.length-1))){
+            return;
+        }
+
+        text1 = calculateOperation(text1, ['*', '/']);
+        text1 = calculateOperation(text1, ['+']);
+        console.log("steps: " + steps);
 
         let divThings = document.getElementById("steps");
         let elem = document.getElementById("tempdiv");
@@ -151,8 +159,6 @@ const CalcMain = () =>{
 
     return(
         <Fragment>
-            
-
         <div className="bg-slate-900 h-screen">
             <div className="flex">
                 <h1 className="text-4xl text-violet-300 font-mono mb-5 bg-slate-500 align-text-right text-center justify-center w-screen h-12 ">Calculator </h1>
@@ -170,7 +176,6 @@ const CalcMain = () =>{
                             <textarea id="input-main" onChange={()=>handleChange()} placeholder="input mathematical expression..." className="border-3 w-2/6 h-1/6 bg-slate-700 text-violet-100 border-slate-500 p-2 align-text-top"></textarea>
                             <p  className="text-white font-mono text-3xl p-4 text-center">Evaluation = <span id="result"></span></p>
                         </div>
-
                     </div>
                 </div>
                 <div id="steps">
