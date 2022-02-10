@@ -20,7 +20,7 @@ const CalcMain = () =>{
     specialChars.set('e', 2.7);
     
 
-    function splitAtOperator(string){
+    function splitAtOperatorBigger(string){
         var smallest = 9999;
         operatorList.forEach(e=> {
             var index = string.indexOf(e);
@@ -28,10 +28,23 @@ const CalcMain = () =>{
                 smallest = index;
             }
         });
-        string = string.substring(0, smallest);
+        if(smallest!=9999){string = string.substring(0, smallest);}
 
         return string;
     }
+    function splitAtOperatorSmaller(string){
+        var smallest = 9999;
+        operatorList.forEach(e=> {
+            var index = string.indexOf(e);
+            if(index != -1 && index < smallest){
+                smallest = index;
+            }
+        });
+        if(smallest!=9999){string = string.substring(smallest + 1);}
+
+        return string;
+    }
+
 
 
     function isNumber(char) {
@@ -52,14 +65,45 @@ const CalcMain = () =>{
         let text1 = document.getElementById('input-main').value; 
         text1 = text1.replace(/\s+/g, '');
 
-        let indeces = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
+        
+        let indecesMultiplication = [...text1.matchAll(new RegExp("[*]", 'gi'))].map(a => a.index);
+        console.log(indecesMultiplication);
         let steps = [];
+        
+        while (indecesMultiplication.length != 0 && indecesMultiplication[0]+1 != text1.length && indecesMultiplication[0] != "*"){
 
-        while (indeces.length != 0 && indeces[0]+1 != text1.length && indeces[0] != "+"){
+            let part1 = text1.substring(0, indecesMultiplication[0]);
+            let part2 = text1.substring(indecesMultiplication[0]+1);
 
-            let part1 = text1.substring(0, indeces[0]);
-            let part2 = text1.substring(indeces[0]+1);
-            part2 = splitAtOperator(part2);
+
+            part1 = splitAtOperatorSmaller(part1)
+            part2 = splitAtOperatorBigger(part2);
+
+            //console.log("part1: " + part1 + " part2: " + part2);
+
+            let together = part1 + "*" + part2;
+
+            steps.push(together +" = "+ (parseFloat(part1)*parseFloat(part2)).toString());
+
+            if(part1.length > 0 && part2.length > 0){
+                text1 = text1.replace(together, (parseFloat(part1)*parseFloat(part2)));
+            }
+
+            indecesMultiplication = [...text1.matchAll(new RegExp("[*]", 'gi'))].map(a => a.index);
+        }
+
+        let indecesAddition = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
+
+        while (indecesAddition.length != 0 && indecesAddition[0]+1 != text1.length && indecesAddition[0] != "+"){
+
+            let part1 = text1.substring(0, indecesAddition[0]);
+            let part2 = text1.substring(indecesAddition[0]+1);
+
+            part1 = splitAtOperatorSmaller(part1)
+            part2 = splitAtOperatorBigger(part2);
+
+           //console.log("part1: " + part1 + " part2: " + part2);
+
             let together = part1 + "+" + part2;
 
             steps.push(together +" = "+ (parseFloat(part1)+parseFloat(part2)).toString());
@@ -67,7 +111,8 @@ const CalcMain = () =>{
             if(part1.length > 0 && part2.length > 0){
                 text1 = text1.replace(together, (parseFloat(part1)+parseFloat(part2)));
             }
-            indeces = indeces = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
+
+            indecesAddition = indecesAddition = [...text1.matchAll(new RegExp("[+]", 'gi'))].map(a => a.index);
         }
 
         let divThings = document.getElementById("steps");
