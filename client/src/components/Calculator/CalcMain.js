@@ -136,7 +136,7 @@ const CalcMain = () =>{
         for(let i =0; i< steps.length;i++){
             let temp = document.createElement('textare');
             temp.innerHTML = steps[i];
-            temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6 flex-wrap" 
+            temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6 flex-wrap truncate" 
             let temp2 = document.createElement('br');
             tempdiv.appendChild(temp);
             tempdiv.appendChild(temp2);
@@ -167,7 +167,7 @@ const CalcMain = () =>{
                         </div>
                     </div>
                 </div>
-                <div id="steps">
+                <div id="steps" className="w-1/4">
                     <h1 className="text-4xl text-white font-mono">Steps:</h1>
                     <br></br>
                 </div>
