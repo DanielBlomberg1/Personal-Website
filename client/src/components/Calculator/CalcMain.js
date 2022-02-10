@@ -64,11 +64,16 @@ const CalcMain = () =>{
 
         let text1 = document.getElementById('input-main').value; 
         text1 = text1.replace(/\s+/g, '');
+        document.getElementById('result').innerHTML = "";
 
         
         let indecesMultiplication = [...text1.matchAll(new RegExp("[*]", 'gi'))].map(a => a.index);
         console.log(indecesMultiplication);
         let steps = [];
+
+        if(!isNumber(text1.charAt(0)) || !isNumber(text1.charAt(text1.length-1))){
+            return;
+        }
         
         while (indecesMultiplication.length != 0 && indecesMultiplication[0]+1 != text1.length && indecesMultiplication[0] != "*"){
 
@@ -79,6 +84,9 @@ const CalcMain = () =>{
             part1 = splitAtOperatorSmaller(part1)
             part2 = splitAtOperatorBigger(part2);
 
+            if(!isNumber(part1) || !isNumber(part2)){
+                return;
+            }
             //console.log("part1: " + part1 + " part2: " + part2);
 
             let together = part1 + "*" + part2;
@@ -102,6 +110,9 @@ const CalcMain = () =>{
             part1 = splitAtOperatorSmaller(part1)
             part2 = splitAtOperatorBigger(part2);
 
+            if(!isNumber(part1) || !isNumber(part2)){
+                return;
+            }
            //console.log("part1: " + part1 + " part2: " + part2);
 
             let together = part1 + "+" + part2;
@@ -135,7 +146,6 @@ const CalcMain = () =>{
         }
 
         divThings.appendChild(tempdiv);
-
         document.getElementById('result').innerHTML = text1;
     };
 
