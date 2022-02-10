@@ -23,9 +23,6 @@ code {
   h3 {
     @apply text-lg text-white font-mono;
   }
-  a {
-    @apply text-blue-600 underline;
-  }
 }
 @tailwind components;
 @tailwind utilities;

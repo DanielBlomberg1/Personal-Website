@@ -125,9 +125,9 @@ const CalcMain = () =>{
 
         let divThings = document.getElementById("steps");
         let elem = document.getElementById("tempdiv");
+
         if(typeof elem !== 'undefined' && elem !== null){
             elem.remove();
-            
         }
 
         let tempdiv = document.createElement('div');
@@ -135,7 +135,7 @@ const CalcMain = () =>{
 
         for(let i =0; i< steps.length;i++){
             let temp = document.createElement('textare');
-            temp.innerHTML = steps[i];
+            temp.innerHTML = i+1 +". "+ steps[i];
             temp.className = "text-white font-mono text-3xl bg-slate-900 border-1 w-1/6 flex-wrap truncate" 
             let temp2 = document.createElement('br');
             tempdiv.appendChild(temp);

@@ -5,7 +5,7 @@ const CalcInfo = () =>{
         <Fragment>
             <div className="ml-5 mt-20">
                 <h1 className="">Whats this?</h1>
-                <h2> * This is an calculator app</h2>
+                <h2> * This is an calculator app that shows the steps it takes it solve problems</h2>
                 <br></br>
                 <h1>How to use it</h1>
                 <h2> * Type a math problem into the textbox above. </h2>
