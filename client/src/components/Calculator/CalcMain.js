@@ -13,11 +13,6 @@ const CalcMain = () =>{
         '*': function(a, b) {return a*b},
         '/': function(a, b) {return a/b},
     }
-
-    const regexEscaped = {
-        '*': "/\*/",
-        '-': "/\-/"
-    }
     
     const specialChars = new Map;
     specialChars.set('π', 3.14);
@@ -67,7 +62,6 @@ const CalcMain = () =>{
 
     function calculateOperation(s, operators){
         let indeces =[];
-        console.log(operators[0]);
 
         if(operators.length > 1){
             for(let i = 0; i < operators.length; i++){
@@ -82,10 +76,7 @@ const CalcMain = () =>{
             indeces = [...s.matchAll(new RegExp("[" + operators[0] + "]", 'gi'))].map(a => a.index);
         }
 
-        console.log(indeces);
-
         while (indeces.length != 0 && indeces[0]+1 != s.length){
-
             let part1 = s.substring(0, indeces[0]);
             let part2 = s.substring(indeces[0]+1);
 
@@ -93,14 +84,12 @@ const CalcMain = () =>{
             part2 = splitAtOperatorBigger(part2);
 
             if(!isNumber(part1) || !isNumber(part2)){
-                return;
+                return s;
             }
-           //console.log("part1: " + part1 + " part2: " + part2);
 
             let together = part1 + s.charAt(indeces[0]) + part2;
 
             steps.push(together +" = "+ (operatorfuncs[s.charAt(indeces[0])](parseFloat(part1), parseFloat(part2))).toString());
-            console.log("steps: " + steps);
 
             if(part1.length > 0 && part2.length > 0){
                 s = s.replace(together, (operatorfuncs[s.charAt(indeces[0])](parseFloat(part1), parseFloat(part2))));
@@ -131,7 +120,7 @@ const CalcMain = () =>{
         }
 
         text1 = calculateOperation(text1, ['*', '/']);
-        text1 = calculateOperation(text1, ['+']);
+        text1 = calculateOperation(text1, ['+', '-']);
         console.log("steps: " + steps);
 
         let divThings = document.getElementById("steps");
@@ -154,7 +143,7 @@ const CalcMain = () =>{
         }
 
         divThings.appendChild(tempdiv);
-        document.getElementById('result').innerHTML = text1;
+        document.getElementById('result').innerHTML = parseFloat(text1).toFixed(4);
     };
 
     return(
