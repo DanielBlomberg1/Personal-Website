@@ -4,53 +4,63 @@ import "../../App.css";
 
 const CalcMain = () =>{
     const operatorList = ['+','-', '/', '*'];
+    const operatorfuncs = {
+        '+': function(a, b) {return a+b},
+        '-': function(a, b) {return a-b},
+        '*': function(a, b) {return a*b},
+        '/': function(a, b) {return a/b},
+    }
     const specialChars = new Map;
     specialChars.set('π', 3.14);
     specialChars.set('e', 2.7);
     
+
+    function isNumber(char) {
+        if (typeof char !== 'string') {
+          return false;
+        }
+      
+        if (char.trim() === '') {
+          return false;
+        }
+      
+        return !isNaN(char);
+      }
+
 
     function getNumberNearOperator(s, boolean){ 
         console.log(s);
         var evaluate;
         if(s == null){return;}
         let smallest = 9999;
+
         operatorList.forEach(e => {
             let eI = s.lastIndexOf(e);
             const indeces = [...s.matchAll(new RegExp("["+e+"]", 'gi'))].map(a => a.index);
             console.log(indeces);
             //console.log("index of " + e + " is "+ eI);
+
             indeces.forEach(i =>{
-                console.log("i" + i);
                 var part1 = s.substring(0, i);
                 var part2 = s.substring(i);
-                var closest = 9999;
 
-                operatorList.forEach(e => {
-                    var close = i.reduce(function(prev, curr) {
-                        return (Math.abs(curr - i) < Math.abs(prev - i) ? curr : prev);
-                    });
-                    if(closest > close){ closest = close;}
-                });
-                part2 = part2.substring(0, closest);
-
-                evaluate += window.eval(part1 + e + part2);
+                for(var i = 0; i < part2.length; i++){
+                    if(!isNumber(part2.charAt(i))){
+                        part2 = part2.substring(0, i);
+                        i=part2.length;
+                    }   
+                }
+                console.log("part1 : " + part1 + " part2: " + part2);
+                evaluate +=operatorfuncs[e](part1, part2);
 
             });
+
             if(eI < smallest && eI != -1){
                 smallest = eI;
             }
         });
         
-        if(smallest != 9999){
-            if(boolean){
-                s = s.substring(smallest+1);
-            }else{
-                s = s.substring(0,smallest);
-            }
-
-            //console.log(s);
-        }
-        console.log(evaluate);
+        console.log("evaluate =  "+ evaluate);
         return s;
     }
 
