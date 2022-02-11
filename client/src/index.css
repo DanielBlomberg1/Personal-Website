@@ -28,6 +28,9 @@ code {
 @tailwind utilities;
 
 
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
+
+
 @layer components{
   .sidebar-btn-def {
     @apply flex justify-center items-center text-center space-x-3 mt-3 mr-2 ml-2 mb-3 rounded-3xl hover:bg-slate-800 text-3xl font-mono  text-white;
