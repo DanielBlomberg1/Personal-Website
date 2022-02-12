@@ -16,7 +16,7 @@ const PortfolioBody = () =>{
                 <div className="container flex flex-col-reverse lg:flex-row items-center gap-12 mt-14 lg:mt-28">
                     <div className="flex flex-1 flex-col items-center lg:items-start">
                         <h2 className="text-black font-bold text-4xl text-center lg:text-left mb-6">This is my life</h2>
-                        <p className="text-slate-600 text-2xl text-left mb-6"> I am {years} years of age. And software development is my passion</p>
+                        <p className="text-slate-600 text-2xl text-left mb-6"> I am {years} years old statistics student from Tampere Finland<br></br> with a passion for software development.</p>
                         <a target="_blank" href="https://github.com/DanielBlomberg1" rel="noopener noreferrer" className="btn bg-violet-500 text-white hover:bg-violet-400">  Check out my Github</a>
                     </div>
                     <div
