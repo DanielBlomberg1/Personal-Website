@@ -1,5 +1,10 @@
 import React,{Fragment} from "react";
 import "../../index.css"
+import cpp from 'programming-languages-logos/src/cpp/cpp.svg';
+import csharp from 'programming-languages-logos/src/csharp/csharp.svg';
+import js from 'programming-languages-logos/src/javascript/javascript.svg';
+import python from 'programming-languages-logos/src/python/python.svg';
+import php from 'programming-languages-logos/src/php/php.svg';
 
 const PortfolioBody = () =>{
     const d = new Date();
@@ -14,12 +19,19 @@ const PortfolioBody = () =>{
                         <p className="text-slate-600 text-2xl text-left mb-6"> I am {years} years of age. And software development is my passion</p>
                         <button className="shadows-md btn btn-primary bg-violet-500 hover:bg-violet-400 border-0"> Check out my github</button>
                     </div>
+                    <div
+                        className="hidden md:block overflow-hidden bg-violet-400 rounded-l-full absolute h-80 w-2/4 top-32 right-0 lg:-bottom-28 lg:-right-36"
+                    ></div>
                 </div>
-            </section>
-
-            <section className="bg-bookmark-white py-20 mt-20 lg:mt-60 relative">
-                <div className="grid grid-cols-6 grid-rows-2">
-                    
+                <div className="container flex flex-col-reverse lg:flex-row items-center gap-12 mt-28 lg:mt-80 ">
+                    <h2 className="text-black font-bold text-4xl text-center lg:text-left mb-6">Languages that I know: </h2>
+                </div>
+                <div className="grid grid-cols-5 grid-rows-2 justify-items-center container w-1/2">
+                    <img src={cpp} className="w-10/12 "></img>
+                    <img src={js} className="w-10/12"></img>
+                    <img src={csharp} className="w-10/12"></img>
+                    <img src={python} className="w-10/12"></img>
+                    <img src={php} className="w-10/12"></img>
                 </div>
             </section>
         </Fragment>
