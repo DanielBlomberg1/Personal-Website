@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 const HomeSideBar = () =>{
 
     return(
-        <Fragment>
+        <div>
                 <div className=" rounded-3xl bg-gray-900 w-1/4 p-6 items-center shadow-xl animate-fade-in-down flex-shrink max-w-screen-lg ">
                     <Link to="/todo" className="btn sidebar-btn-def hover:text-yellow-400">
                         <img src="https://img.icons8.com/ios-filled/100/000000/inspection.png"/>
@@ -25,7 +25,7 @@ const HomeSideBar = () =>{
                     </Link>
                 </div>
                  <div class="w-1/2"></div>
-        </Fragment>
+        </div>
     )
 };
 
