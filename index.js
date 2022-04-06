@@ -87,6 +87,29 @@ app.delete("/todo/:id", async (req, res) => {
   }
 });
 
+
+app.get("/api/getclicks", async(req, res) =>{
+  try{
+    const currentclick = await pool.query("SELECT description FROM click");
+    res.json(currentclick.rows);
+  } catch(err){
+    console.log(err.message);
+  }
+});
+
+app.put("/api/updateclicks", async(req, res) =>{
+  console.log("hello program");
+  try{
+    const { clickamount } = req.body;
+    console.log("body = " + req.body);
+    const currentclick = await pool.query("UPDATE click SET description = "+ clickamount +" WHERE click_id = 0");
+    res.json("clicks updated to " + clickamount + " successfully");
+  } catch(err){
+    console.log(err.message);
+  }
+});
+
+
 app.listen(5000, () => {
   console.log("server has started on port 5000");
 });
