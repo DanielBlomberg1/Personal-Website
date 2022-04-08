@@ -7,7 +7,6 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json()); //req.body
 
-//ROUTES//
 
 //create a todo
 
@@ -19,6 +18,7 @@ pool.query('SELECT NOW()', (err, res) => {
 app.post("/todo", async (req, res) => {
   try {
     const { description } = req.body;
+    console.log("desc = ",description);
     const newTodo = await pool.query(
       "INSERT INTO todo (description) VALUES($1) RETURNING *",
       [description]
@@ -98,11 +98,10 @@ app.get("/api/getclicks", async(req, res) =>{
 });
 
 app.put("/api/updateclicks", async(req, res) =>{
-  console.log("hello program");
   try{
-    const { clickamount } = req.body;
-    console.log("body = " + req.body);
-    const currentclick = await pool.query("UPDATE click SET description = "+ clickamount +" WHERE click_id = 0");
+    const clickamount = Object.values(req?.body);
+    const query = "UPDATE click SET description = "+ clickamount +" WHERE click_id = 0";
+    const currentclick = await pool.query(query);
     res.json("clicks updated to " + clickamount + " successfully");
   } catch(err){
     console.log(err.message);
