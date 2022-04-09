@@ -48,9 +48,7 @@ const MainHome = () =>{
                 <h1 class="font-mono text-white text-4xl text-center ml-2">My Website</h1>
                 <p class="animate-wiggle font-mono text-white mb-5 text-2xl max-w-screen-lg ml-40" >My web apps</p>
                 <div class="mt-6 ml-2 flex flex-row">
-
                     <HomeSideBar/>
-
                     <div class="mx-20  bg-gray-900 rounded-3xl p-6 ">
                         <h3 class="text-white text-2xl font-mono text-center btn-text-1">This button has been clicked {count} times</h3>
                         <div class= " mt-4 content-center justify-center items-center flex ">
@@ -58,7 +56,6 @@ const MainHome = () =>{
                                 click this
                             </button>
                         </div>
-
                     </div>
                 </div>
             </div>
