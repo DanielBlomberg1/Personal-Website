@@ -21,7 +21,7 @@ const InputTodo = () => {
 
   return (
     <Fragment>
-      <h1 className="text-center text-2xl">Tehtävä Lista</h1>
+      <h1 className="text-center text-2xl text-black mb-4">Tehtävä Lista</h1>
       <form className="d-flex" onSubmit={onSubmitForm}>
         <input
           type="text"
@@ -31,6 +31,7 @@ const InputTodo = () => {
         />
         <button className="btn btn-success">Add</button>
       </form>
+      <div className="h-8"></div>
     </Fragment>
   );
 };
