@@ -12,7 +12,7 @@ const MainHome = () =>{
             const jsonData = await response.json();
             
             console.log("clicks = ", Object.values(jsonData[0]));
-            setCount(parseInt(Object.values(jsonData[0])));
+            setCount(parseInt(Object.values(jsonData[0])) + 1);
         } catch (err) {
             console.error(err.message);
         }
